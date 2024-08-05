@@ -170,4 +170,57 @@ public class WhatsappRepository {
         return filteredMessages.get(K - 1).getContent();
 
     }
+
+    public boolean groupExists(Group group) {
+        return groupUserMap.containsKey(group);
+
+    }
+
+    public boolean isMember(User sender, Group group) {
+        List<User> users = groupUserMap.get(group);
+        return users != null && users.contains(sender);
+    }
+
+    public boolean isAdmin(User approver, Group group) {
+        User admin = adminMap.get(group);
+        return admin != null && admin.equals(approver);
+    }
+
+    public boolean isParticipant(User user, Group group) {
+        List<User> users = groupUserMap.get(group);
+        return users != null && users.contains(user);
+    }
+
+    public boolean userExists(User user) {
+        return userMobile.contains(user.getMobile());
+
+    }
+
+    public Group getUserGroup(User user) {
+        for (Map.Entry<Group, List<User>> entry : groupUserMap.entrySet()) {
+            if (entry.getValue().contains(user)) {
+                return entry.getKey();
+            }
+        }
+        return null;
+
+    }
+
+    public List<Message> findMessages(Date start, Date end) {
+        List<Message> filteredMessages = new ArrayList<>();
+        for (List<Message> messages : groupMessageMap.values()) {
+            for (Message message : messages) {
+                Date timestamp = message.getTimestamp();
+                if (timestamp.after(start) && timestamp.before(end)) {
+                    filteredMessages.add(message);
+                }
+            }
+        }
+        return filteredMessages;
+    }
+
+    public int getGroupCount() {
+        return customGroupCount;
+
+    }
 }
