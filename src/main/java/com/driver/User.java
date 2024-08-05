@@ -1,6 +1,7 @@
 package com.driver;
 
 public class User {
+    private int id;           // Add this field
     private String name;
     private String mobile;
 
@@ -8,12 +9,21 @@ public class User {
         // Default constructor
     }
 
-    public User(String name, String mobile) {
+    public User(int id, String name, String mobile) {
+        this.id = id;         // Initialize id
         this.name = name;
         this.mobile = mobile;
     }
 
     // Getters and Setters
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
     }
@@ -33,7 +43,8 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "name='" + name + '\'' +
+                "id=" + id +          // Include id in toString
+                ", name='" + name + '\'' +
                 ", mobile='" + mobile + '\'' +
                 '}';
     }

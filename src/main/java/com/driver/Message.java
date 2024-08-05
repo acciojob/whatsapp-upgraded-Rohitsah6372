@@ -37,4 +37,11 @@ public class Message {
     public void setTimestamp(Date timestamp) {
         this.timestamp = timestamp;
     }
+
+    public static Date getDate(Object o) {
+        if (o instanceof Date) {
+            return (Date) o;
+        }
+        return null; // or throw an exception if you prefer
+    }
 }
